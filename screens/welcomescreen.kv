@@ -1,0 +1,91 @@
+<WelcomeScreen>:
+
+    MDBoxLayout:
+        orientation: 'vertical'  # Disposition verticale des widgets à l'intérieur du BoxLayout
+
+        canvas.before:
+            # Dessine un arrière-plan en deux moitiés avec des couleurs différentes
+            Color:
+                rgba: (0.886, 0.918, 0.969, 0.92) # Couleur bleu clair (première moitié)
+            Rectangle:
+                size: self.width, self.height   # Rectangle prenant la moitié inférieure en hauteur
+                pos: self.pos  # Position au bas du widget (coin inférieur gauche)
+
+        Widget:
+            size_hint_y: None
+            height: "30dp" 
+             
+          # ⬇️ Image ajoutée ici
+        Image:
+            source: "assets/images/app_logo.png"
+            size_hint: None, None
+            size: "240dp", "240dp"
+            pos_hint: {"center_x": 0.5}
+
+        Widget:
+            size_hint_y: None
+            height: "30dp" 
+                         
+
+        MDLabel:
+            text: "Welcome to "  # Texte affiché
+            halign: "center"  # Alignement horizontal centré
+            theme_text_color: "Custom"  # Couleur personnalisée du texte
+            text_color: (0.0, 0.455, 0.718, 1)#(0.062, 0.357, 0.616, 0.8)  # Couleur blanche (RGBA)
+            font_style: "H6"  # Style de police (titre de niveau 3)
+            size_hint_y: None  # Hauteur fixe (non proportionnelle)
+            height: self.texture_size[1]  # Hauteur automatique selon la taille du texte
+            pos_hint: {"center_y": 0.}  # Position verticale centrée à 80% de la hauteur du layout
+
+
+        MDLabel:
+            text: "FaceCrypt!"  # Texte affiché
+            halign: "center"  # Alignement horizontal centré
+            theme_text_color: "Custom"  # Couleur personnalisée du texte
+            text_color: (0.0, 0.231, 0.451, 1)#(0.059, 0.176, 0.380, 0.92)
+            font_style: "H3"  # Style de police (titre de niveau 3)
+            size_hint_y: None  # Hauteur fixe (non proportionnelle)
+            height: self.texture_size[1]  # Hauteur automatique selon la taille du texte
+            pos_hint: {"center_y": 0.}  # Position verticale centrée à 80% de la hauteur du layout  
+
+        Widget:  # Widget vide utilisé ici comme espaceur flexible (pour pousser les boutons vers le bas)
+
+        MDRoundFlatButton:
+            text: "Sign In"  # Texte du bouton
+            pos_hint: {"center_x": 0.5}  # Centré horizontalement
+            size_hint: 0.7, None  # Largeur à 60% du parent, hauteur fixe
+            height: "48dp"  # Hauteur fixe en dp
+            md_bg_color: 0.886, 0.918, 0.969, 0.92
+            text_color:0.0, 0.231, 0.451, 1
+            line_color: 0.0, 0.231, 0.451, 1   # bordure bleue opaque
+            #border_radius: (root.radius if root.radius else [0, 0, 0, 0]) if root.shadow_radius == [0, 0, 0, 0] else (root.shadow_radius if root.shadow_radius else [0, 0, 0, 0])
+            on_release: root.sign_in()  # Action à la libération du bouton (appelle la méthode sign_in dans app)
+        
+        
+        Widget:
+            size_hint_y: None
+            height: "17dp"  # Espace fixe de 16dp entre les boutons
+
+        
+        MDRoundFlatButton:
+            text: "Sign Up"  # Texte du bouton
+            pos_hint: {"center_x": 0.5}  # Centré horizontalement
+            size_hint: 0.7, None  # Largeur à 60% du parent, hauteur fixe
+            height: "48dp"  # Hauteur fixe en dp
+            md_bg_color: 0.0, 0.231, 0.451, 1
+            text_color:0.886, 0.918, 0.969, 0.92
+            line_color: 0.0, 0.231, 0.451, 1   # bordure bleue opaque
+            #border_radius: (root.radius if root.radius else [0, 0, 0, 0]) if root.shadow_radius == [0, 0, 0, 0] else (root.shadow_radius if root.shadow_radius else [0, 0, 0, 0])
+            on_release:root.sign_up()  # Action à la libération du bouton (appelle la méthode sign_up dans app)
+        
+        Widget: 
+
+        
+#        MDRoundFlatButton:
+#            text: "Cancel"
+#            pos_hint: {"center_x": 0.5}
+#            md_bg_color: 0, 0, 0, 0  # Fond transparent (par défaut)
+#            text_color: 1, 0, 0, 1   # Texte rouge
+#            on_release: app.cancel_action()
+#        Widget:  # Autre espaceur flexible, pour séparer les boutons du bas de l'écran
+        
