@@ -13,7 +13,7 @@
 
         Widget:
             size_hint_y: None
-            height: "30dp" 
+            height: "40dp" 
              
           # ⬇️ Image ajoutée ici
         Image:
@@ -24,7 +24,7 @@
 
         Widget:
             size_hint_y: None
-            height: "30dp" 
+            height: "20dp" 
                          
 
         MDLabel:
@@ -32,7 +32,8 @@
             halign: "center"  # Alignement horizontal centré
             theme_text_color: "Custom"  # Couleur personnalisée du texte
             text_color: (0.0, 0.455, 0.718, 1)#(0.062, 0.357, 0.616, 0.8)  # Couleur blanche (RGBA)
-            font_style: "H6"  # Style de police (titre de niveau 3)
+            font_name: "EduQLDHand"
+            font_size: "25sp"  # Style de police (titre de niveau 3)
             size_hint_y: None  # Hauteur fixe (non proportionnelle)
             height: self.texture_size[1]  # Hauteur automatique selon la taille du texte
             pos_hint: {"center_y": 0.}  # Position verticale centrée à 80% de la hauteur du layout
@@ -48,7 +49,9 @@
             height: self.texture_size[1]  # Hauteur automatique selon la taille du texte
             pos_hint: {"center_y": 0.}  # Position verticale centrée à 80% de la hauteur du layout  
 
-        Widget:  # Widget vide utilisé ici comme espaceur flexible (pour pousser les boutons vers le bas)
+        Widget: 
+            size_hint_y: None
+            height: "40dp"  # Espace fixe de 16dp entre les boutons # Widget vide utilisé ici comme espaceur flexible (pour pousser les boutons vers le bas)
 
         MDRoundFlatButton:
             text: "Sign In"  # Texte du bouton

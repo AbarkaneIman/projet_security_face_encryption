@@ -1,0 +1,200 @@
+<SignUp>:
+    ScrollView:
+        MDBoxLayout:
+            orientation: 'vertical'
+            padding: "10dp"
+            spacing: "10dp"
+            size_hint_y: None
+            height: self.minimum_height
+
+            canvas.before:
+                Color:
+                    rgba: (0.886, 0.918, 0.969, 0.92)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+            # Image:
+            #     source: "assets/images/app_logo.png"
+            #     size_hint: None, None
+            #     size: "200dp", "200dp"
+            #     pos_hint: {"center_x": 0.5}
+
+            MDBoxLayout:
+                orientation: "horizontal"
+                padding: [5, 0, 0, 0]
+                size_hint_y: None
+                height: self.minimum_height
+
+                MDLabel:
+                    text: "Sign Up"
+                    font_name: "EduQLDHand"
+                    halign: "center"
+                    theme_text_color: "Custom"
+                    text_color: (0.0, 0.455, 0.718, 1)
+                    font_size: "40sp"
+                    size_hint_y: None
+                    height: self.texture_size[1]
+
+
+
+            MDLabel:
+                text: "Create your account"
+                font_name: "EduQLDHand"
+                halign: "center"
+                theme_text_color: "Custom"
+                text_color: (0.0, 0.455, 0.718, 1)
+                font_size: "15sp"
+                size_hint_y: None
+                height: self.texture_size[1]
+
+            Widget:
+                size_hint_y: None
+                height: "2dp"
+
+            # Nom
+            MDTextField:
+                id: nom_field
+                mode: "rectangle"
+                hint_text: "Nom"
+                size_hint_x: 0.8
+                pos_hint: {"center_x": 0.5}
+                icon_left: "account"
+                helper_text: "Entrez votre nom"
+                helper_text_mode: "on_focus"
+                # Styles...
+                text_color: 0.1, 0.1, 0.1, 1
+                cursor_color: 0.062, 0.357, 0.616, 0.8
+                hint_text_color: 0.5, 0.5, 0.5, 1
+                line_color_normal: 0.6, 0.6, 0.6, 1
+                line_color_focus: 0.062, 0.357, 0.616, 0.8
+                icon_left_color: 0.062, 0.357, 0.616, 0.8
+
+
+            Widget:
+                size_hint_y: None
+                height: "0.5dp"
+
+            # Prénom
+            MDTextField:
+                id: prenom_field
+                mode: "rectangle"
+                hint_text: "Prénom"
+                size_hint_x: 0.8
+                pos_hint: {"center_x": 0.5}
+                icon_left: "account"
+                helper_text: "Entrez votre prénom"
+                helper_text_mode: "on_focus"
+                text_color: 0.1, 0.1, 0.1, 1
+                cursor_color: 0.062, 0.357, 0.616, 0.8
+                hint_text_color: 0.5, 0.5, 0.5, 1
+                line_color_normal: 0.6, 0.6, 0.6, 1
+                line_color_focus: 0.062, 0.357, 0.616, 0.8
+                icon_left_color: 0.062, 0.357, 0.616, 0.8
+
+
+            Widget:
+                size_hint_y: None
+                height: "0.5dp"
+
+            # CIN
+            MDTextField:
+                id: cin_field
+                mode: "rectangle"
+                hint_text: "CIN"
+                size_hint_x: 0.8
+                pos_hint: {"center_x": 0.5}
+                icon_left: "card-account-details"
+                helper_text: "Entrez votre CIN"
+                helper_text_mode: "on_focus"
+                text_color: 0.1, 0.1, 0.1, 1
+                cursor_color: 0.062, 0.357, 0.616, 0.8
+                hint_text_color: 0.5, 0.5, 0.5, 1
+                line_color_normal: 0.6, 0.6, 0.6, 1
+                line_color_focus: 0.062, 0.357, 0.616, 0.8
+                icon_left_color: 0.062, 0.357, 0.616, 0.8
+
+            Widget:
+                size_hint_y: None
+                height: "0.5dp"
+
+            # Email
+            MDTextField:
+                id: email_signup_field
+                mode: "rectangle"
+                hint_text: "Email"
+                size_hint_x: 0.8
+                pos_hint: {"center_x": 0.5}
+                icon_left: "email"
+                helper_text: "Entrez un email valide"
+                helper_text_mode: "on_focus"
+                text_color: 0.1, 0.1, 0.1, 1
+                cursor_color: 0.062, 0.357, 0.616, 0.8
+                hint_text_color: 0.5, 0.5, 0.5, 1
+                line_color_normal: 0.6, 0.6, 0.6, 1
+                line_color_focus: 0.062, 0.357, 0.616, 0.8
+                icon_left_color: 0.062, 0.357, 0.616, 0.8
+
+            Widget:
+                size_hint_y: None
+                height: "0.5dp"
+
+            # Password
+            MDTextField:
+                id: password_signup_field
+                mode: "rectangle"
+                hint_text: "Mot de passe"
+                size_hint_x: 0.8
+                pos_hint: {"center_x": 0.5}
+                icon_left: "lock"
+                password: True
+                helper_text: "Choisissez un mot de passe sécurisé"
+                helper_text_mode: "on_focus"
+                text_color: 0.1, 0.1, 0.1, 1
+                cursor_color: 0.062, 0.357, 0.616, 0.8
+                hint_text_color: 0.5, 0.5, 0.5, 1
+                line_color_normal: 0.6, 0.6, 0.6, 1
+                line_color_focus: 0.062, 0.357, 0.616, 0.8
+                icon_left_color: 0.062, 0.357, 0.616, 0.8
+
+            Widget:
+                size_hint_y: None
+                height: "20dp"
+            MDRoundFlatButton:
+                text: "Sign Up"  # Texte du bouton
+                pos_hint: {"center_x": 0.5}  # Centré horizontalement
+                size_hint: 0.7, None  # Largeur à 60% du parent, hauteur fixe
+                height: "48dp"  # Hauteur fixe en dp
+                md_bg_color: 0.0, 0.231, 0.451, 1
+                text_color:0.886, 0.918, 0.969, 0.92
+                #border_radius: (root.radius if root.radius else [0, 0, 0, 0]) if root.shadow_radius == [0, 0, 0, 0] else (root.shadow_radius if root.shadow_radius else [0, 0, 0, 0])
+                on_release: app.sign_up()  # Action à la libération du bouton (appelle la méthode sign_up dans app)
+        
+            
+            MDBoxLayout:
+                orientation: "horizontal"
+                padding: [0,20,0, 0]
+                size_hint_y: None
+                height: self.minimum_height
+
+            
+                MDRoundFlatButton:
+                    text: "Forgot Password ?"  # Texte du bouton
+                    pos_hint: {"center_x": 0.5}  # Centré horizontalement
+                    size_hint: 0.7, None  # Largeur à 60% du parent, hauteur fixe
+                    height: "48dp"  # Hauteur fixe en dp
+                    halign: "right"
+                    font_name: "EduQLDHand"
+                    md_bg_color: 0.886, 0.918, 0.969, 0.92
+                    text_color:0.0, 0.231, 0.451, 1
+                    line_color:  0.886, 0.918, 0.969, 0.92
+                    #border_radius: (root.radius if root.radius else [0, 0, 0, 0]) if root.shadow_radius == [0, 0, 0, 0] else (root.shadow_radius if root.shadow_radius else [0, 0, 0, 0])
+                    on_release: app.on_text_click() # Action à la libération du bouton (appelle la méthode sign_up dans app)
+        
+    
+            # MDLabel:
+            #     text: 'Forget Password ?'
+            #     markup: True
+            #     theme_text_color: 'Primary'
+            #     halign: 'center'
+            #     on_ref_press: app.on_text_click()
