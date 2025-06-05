@@ -5,7 +5,7 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 
 # Charge le fichier JSON téléchargé (chemin relatif à ton script)
-cred = credentials.Certificate("C:/Users/pc/Desktop/cyber_securite/projet_fin_module/faceencryption-firebase-adminsdk-fbsvc-e74221f523.json")
+cred = credentials.Certificate("C:/Users/nihad/OneDrive/Desktop/master/Securite/projet_security_face_encryption/faceencryption-firebase-adminsdk-fbsvc-3acfdf0298.json")
 
 # Initialise Firebase Admin (à faire une seule fois dans toute l'application)
 firebase_admin.initialize_app(cred)
