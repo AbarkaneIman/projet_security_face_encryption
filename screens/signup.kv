@@ -168,7 +168,7 @@
                 md_bg_color: 0.0, 0.231, 0.451, 1
                 text_color:0.886, 0.918, 0.969, 0.92
                 #border_radius: (root.radius if root.radius else [0, 0, 0, 0]) if root.shadow_radius == [0, 0, 0, 0] else (root.shadow_radius if root.shadow_radius else [0, 0, 0, 0])
-                on_release: app.sign_up()  # Action à la libération du bouton (appelle la méthode sign_up dans app)
+                on_release: root.sign_up()  # Action à la libération du bouton (appelle la méthode sign_up dans app)
         
             
             MDBoxLayout:
@@ -192,9 +192,3 @@
                     on_release: app.on_text_click() # Action à la libération du bouton (appelle la méthode sign_up dans app)
         
     
-            # MDLabel:
-            #     text: 'Forget Password ?'
-            #     markup: True
-            #     theme_text_color: 'Primary'
-            #     halign: 'center'
-            #     on_ref_press: app.on_text_click()
