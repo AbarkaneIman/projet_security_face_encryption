@@ -1,0 +1,74 @@
+<HomeScreen>:
+    name: 'home'
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: "20dp"
+        spacing: "15dp"
+
+        canvas.before:
+            Color:
+                rgba: (0.886, 0.918, 0.969, 0.92)
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        # ✅ En-tête du profil
+        MDBoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: "100dp"
+            spacing: "15dp"
+            padding: "10dp"
+
+            Image:
+                source: "assets/images/user.png"
+                size_hint: None, None
+                size: "80dp", "80dp"
+                pos_hint: {"center_y": 0.5}
+                allow_stretch: True
+                keep_ratio: True
+
+            MDBoxLayout:
+                orientation: 'vertical'
+                spacing: "5dp"
+                MDLabel:
+                    text: "Bienvenue,"
+                    font_style: "Subtitle1"
+                    text_color: 0.0, 0.231, 0.451, 1
+                    theme_text_color: "Custom"
+
+                MDLabel:
+                    text: "Nom d'utilisateur"
+                    font_style: "H6"
+                    text_color: 0.0, 0.231, 0.451, 1
+                    theme_text_color: "Custom"
+
+        # ✅ Espace pour 
+        BoxLayout:
+            id: camera_box
+            orientation: 'vertical'
+            size_hint_y: None
+            height: 0 
+
+        Widget:  # Spacer
+
+        # ✅ Bouton Ouvrir la caméra
+        MDRoundFlatButton:
+            text: " Ouvrir la caméra"
+            pos_hint: {"center_x": 0.5}
+            size_hint: 0.7, None
+            height: "48dp"
+            md_bg_color: 0.0, 0.231, 0.451, 1
+            text_color: 0.886, 0.918, 0.969, 0.92
+            on_release: root.open_camera()
+
+        # ✅ Bouton Déconnexion
+        MDRoundFlatButton:
+            text: " Déconnexion"
+            pos_hint: {"center_x": 0.5}
+            size_hint: 0.7, None
+            height: "48dp"
+            md_bg_color: 0.886, 0.918, 0.969, 0.92
+            text_color: 0.0, 0.231, 0.451, 1
+            on_release: root.logout()
