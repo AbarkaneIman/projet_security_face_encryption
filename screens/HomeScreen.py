@@ -1,3 +1,4 @@
+import datetime
 import cv2
 from kivy.clock import Clock
 from kivy.uix.image import Image
@@ -44,11 +45,13 @@ class HomeScreen(MDScreen):
             print("⚠️ Erreur lors de la capture de l'image.")
 
     def capture_image(self):
-        # Prendre une photo et l’enregistrer
+        # Prendre une photo et l’enregistrer avec un nom unique
         ret, frame = self.capture.read()
         if ret:
-            cv2.imwrite("captured_frame.png", frame)
-            print("✅ Image enregistrée : captured_frame.png")
+            timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"captured_{timestamp}.png"
+            cv2.imwrite(filename, frame)
+            print(f"✅ Image enregistrée : {filename}")
 
     def close_camera(self):
         # Fermer la caméra proprement
