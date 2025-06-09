@@ -9,6 +9,8 @@ from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager
 
 
+
+
 Window.size = (340, 620)  # Pour test sur PC
 
 from kivy.core.text import LabelBase

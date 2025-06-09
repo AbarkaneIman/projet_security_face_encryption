@@ -7,6 +7,8 @@ from kivy.graphics.texture import Texture
 from kivymd.uix.screen import MDScreen
 from kivy.uix.boxlayout import BoxLayout
 from kivymd.uix.button import MDRoundFlatButton
+from screens.encryption import generate_key, load_key, encrypt_data, decrypt_data
+from screens.face_utils import get_face_encoding
 
 class HomeScreen(MDScreen):
 
