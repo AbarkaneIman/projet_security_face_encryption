@@ -61,3 +61,6 @@ class HomeScreen(MDScreen):
             self.ids.camera_box.clear_widgets()
             self.ids.camera_box.height = 0
             print("📷 Caméra fermée.")
+
+    def set_user_info(self, nom, prenom):
+        self.ids.welcome_label.text = f"Bienvenue {prenom} {nom} !"

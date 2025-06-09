@@ -5,7 +5,7 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 
 # Charge le fichier JSON téléchargé (chemin relatif à ton script)
-cred = credentials.Certificate("C:/Users/nihad/OneDrive/Desktop/master/Securite/projet_security_face_encryption/faceencryption-firebase-adminsdk-fbsvc-3acfdf0298.json")
+cred = credentials.Certificate("C:/Users/pc/Desktop/cyber_securite/projet_fin_module/faceencryption-firebase-adminsdk-fbsvc-e74221f523.json")
 
 # Initialise Firebase Admin (à faire une seule fois dans toute l'application)
 firebase_admin.initialize_app(cred)
@@ -88,5 +88,11 @@ class SignUp(MDScreen):
 
         print("Inscription réussie :", nom, prenom, cin, email)
 
+        # ✅ Récupérer le screen 'home' et passer les infos
+        home_screen = self.manager.get_screen('home')
+        home_screen.set_user_info(nom, prenom)
+        self.manager.current = 'home'  ## ✅ Rediriger vers l'écran d'accueil
+
     def on_text_click(self, *args):
         print("Texte cliqué !")
+    
