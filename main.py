@@ -1,3 +1,4 @@
+import os
 from kivy.lang import Builder
 from kivymd.app import MDApp
 from screens.HomeScreen import HomeScreen
@@ -6,6 +7,7 @@ from screens.SignUp import SignUp  # ✅ chemin corrigé
 from screens.LoginScreen import LoginScreen  # ✅ chemin corrigé
 from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager
+
 
 Window.size = (340, 620)  # Pour test sur PC
 
@@ -33,7 +35,6 @@ class MyApp(MDApp):
         sm.add_widget(SignUp(name="signup"))
         sm.add_widget(HomeScreen(name="home"))
         return sm
-
 if __name__ == '__main__':
     MyApp().run()
 
