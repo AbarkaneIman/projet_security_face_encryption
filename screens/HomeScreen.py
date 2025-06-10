@@ -7,8 +7,8 @@ from kivy.graphics.texture import Texture
 from kivymd.uix.screen import MDScreen
 from kivy.uix.boxlayout import BoxLayout
 from kivymd.uix.button import MDRoundFlatButton
-from screens.encryption import generate_key, load_key, encrypt_data, decrypt_data
-from screens.face_utils import get_face_encoding
+from screens.encryption import generate_aes_key, load_aes_key, encrypt_data, decrypt_data
+from screens.face_utils import get_face_encoding, save_encrypted_encoding
 
 class HomeScreen(MDScreen):
 
@@ -70,7 +70,10 @@ class HomeScreen(MDScreen):
     def capture_image(self):
         ret, frame = self.capture.read()
         if ret:
+            # 1. Renverser الصورة
             frame = cv2.flip(frame, 1)
+
+            # 2. إنشاء اسم الملف
             timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
             folder = "captures"
             os.makedirs(folder, exist_ok=True)
@@ -78,20 +81,16 @@ class HomeScreen(MDScreen):
             cv2.imwrite(image_path, frame)
             print(f"✅ Image enregistrée : {image_path}")
 
-            # 🧠 Étape 1 : Extraire l'encodage du visage
+            # 3. 🧠 استخراج بصمة الوجه
             encoding = get_face_encoding(image_path)
             if encoding is not None:
-                # 🔐 Étape 2 : Chiffrer les données
-                key = load_key()  # assure-toi que la clé est générée au préalable
-                encrypted = encrypt_data(encoding.tobytes(), key)
-
-                # 🗂️ Étape 3 : Enregistrer le fichier chiffré
-                encrypted_path = os.path.join("captures", f"encoding_{timestamp}.enc")
-                with open(encrypted_path, "wb") as f:
-                    f.write(encrypted)
+                # 4. 🔒 تشفير البصمة بالـ AES
+                encrypted_path = os.path.join(folder, f"encoding_{timestamp}.enc")
+                save_encrypted_encoding(encoding, encrypted_path)
                 print(f"🔒 Empreinte faciale chiffrée enregistrée : {encrypted_path}")
             else:
                 print("❌ Aucun visage détecté dans l'image.")
+
 
     def close_camera(self):
         # إغلاق الكاميرا والتوقيف
