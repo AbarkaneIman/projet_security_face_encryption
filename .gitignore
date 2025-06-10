@@ -1,2 +1,14 @@
-faceencryption-firebase-adminsdk-fbsvc-3acfdf0298.json
-secret.key
+# Ignorer les fichiers JSON de configuration secrète
+*.json
+
+# Ou ignorer un fichier précis
+faceencryption-firebase-adminsdk-fbsvc-b0016d8a90.json
+
+# Ignorer les dossiers de cache ou build
+__pycache__/
+build/
+dist/
+
+# Ignorer les fichiers temporaires
+*.log
+*.tmp
