@@ -1,23 +1,22 @@
 import os
 import datetime
 import cv2
-import numpy as np  # <-- Important !
+import numpy as np
 from kivy.clock import Clock
 from kivy.uix.image import Image
 from kivy.graphics.texture import Texture
 from kivymd.uix.screen import MDScreen
 from kivy.uix.boxlayout import BoxLayout
 from kivymd.uix.button import MDRoundFlatButton
-from screens.encryption import generate_key, load_key, encrypt_data, decrypt_data
-from screens.face_utils import get_face_encoding
 from Crypto.Cipher import AES
 from Crypto.Random import get_random_bytes
-from Crypto.Util.Padding import pad, unpad
+from Crypto.Util.Padding import pad
 
 class HomeScreen(MDScreen):
     def set_user_info(self, nom, prenom, cin):
         self.ids.welcome_label.text = f", {nom} {prenom} !"
         # self.ids.cin_label.text = f"CIN : {cin}"
+        self.cin = cin  # Stocker dans l’instance
 
     def open_camera(self):
         self.capture = cv2.VideoCapture(0)
@@ -81,9 +80,6 @@ class HomeScreen(MDScreen):
             self.captured_int_array = int_array
             print("Tableau d'entiers (pixels RGBA) :", len(int_array))
 
-            # Affichage complet (attention si image grande !)
-            # print(int_array)
-        
             # Affichage partiel plus pratique
             print("100 premiers pixels entiers RGBA :", int_array[:100])            
 
@@ -93,39 +89,34 @@ class HomeScreen(MDScreen):
             cv2.waitKey(0)
             cv2.destroyAllWindows()
 
-        self.captured_frame = captured_frame
-        self.close_camera()
-        if captured_frame is not None:
-                # ... [code existant]
+            # Chiffrement AES
             data_chiffree, cle, iv = self.chiffrer_tableau_aes(int_array)
-            image_chiffree_hex =  data_chiffree.hex()[:len(int_array)]
-            print("🔐 Données chiffrées (hex) :",image_chiffree_hex, "...")
+            image_chiffree_hex = data_chiffree.hex()[:len(int_array)]
+            print("🔐 Données chiffrées (hex) :", image_chiffree_hex, "...")
+            
             # Enregistrer dans un fichier texte
-            with open("image_chiffree.txt", "w") as f:
-                f.write(image_chiffree_hex)
+            chemin_fichier = self.sauvegarder_chiffrement_hex(data_chiffree,  self.cin)
+            print(f"Données chiffrées sauvegardées dans : {chemin_fichier}")
             print("🔑 Clé AES (hex)           :", cle.hex())
             print("🧭 IV (hex)                :", iv.hex())
 
+        self.captured_frame = captured_frame
+        self.close_camera()
+
     def rgba_matrix_to_int_array(self, matrix_rgba):
-    
-    # Transforme une matrice (H, W, 4) RGBA en un tableau 1D d'entiers 32 bits,
-    # chaque pixel codé en : (R << 24) | (G << 16) | (B << 8) | A
-    # 
-
-
-    # S'assurer que le type est uint8
+        # S'assurer que le type est uint8
         rgba = matrix_rgba.astype(np.uint8)
 
-    # Séparer les canaux (avec astype uint32 pour éviter overflow)
+        # Séparer les canaux (avec astype uint32 pour éviter overflow)
         R = rgba[:, :, 0].astype(np.uint32)
         G = rgba[:, :, 1].astype(np.uint32)
         B = rgba[:, :, 2].astype(np.uint32)
         A = rgba[:, :, 3].astype(np.uint32)
 
-    # Combiner les canaux en un entier 32 bits
+        # Combiner les canaux en un entier 32 bits
         int_matrix = (R << 24) | (G << 16) | (B << 8) | A
 
-    # Retourner aplati en 1D
+        # Retourner aplati en 1D
         return int_matrix.flatten()
 
     def close_camera(self, *args):
@@ -136,63 +127,25 @@ class HomeScreen(MDScreen):
             self.ids.camera_box.clear_widgets()
             print("📷 Caméra fermée.")
 
-    def image_to_matrix(self, frame, gray_scale=True):
-        if gray_scale:
-            return cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        else:
-            return frame
-        
- 
-
     def chiffrer_tableau_aes(self, tableau_entiers):
         # Convertir chaque entier NumPy en int natif avant to_bytes
         data_bytes = b''.join(int(entier).to_bytes(4, byteorder='big') for entier in tableau_entiers)
 
-    # Étape 2 : générer une clé et un IV
+        # Générer une clé et un IV
         cle = get_random_bytes(32)  # AES-256 => 32 octets
         iv = get_random_bytes(16)   # IV pour le mode CBC
 
-    # Étape 3 : chiffrer
+        # Chiffrer
         cipher = AES.new(cle, AES.MODE_CBC, iv)
         data_chiffree = cipher.encrypt(pad(data_bytes, AES.block_size))
-
+        
         return data_chiffree, cle, iv
 
+    def sauvegarder_chiffrement_hex(self, data_chiffree, cin):
+        filename = f"{cin}.txt"
+        with open(filename, "w") as f:
+            f.write(data_chiffree.hex())
+        return filename
 
-
-    # Fonction de chiffrement AES CBC
-    def chiffrer_message_aes(message: bytes, key: bytes = None):
-        if key is None:
-            key = get_random_bytes(16)  # Clé AES 128 bits
-
-        iv = get_random_bytes(16)  # Vecteur d'initialisation
-        cipher = AES.new(key, AES.MODE_CBC, iv)
-        ciphertext = cipher.encrypt(pad(message, AES.block_size))
-    
-        return ciphertext, key, iv
-    
-
-    def sauvegarder_chiffrement(ciphertext, cin):
-       filename = f"{cin}.txt"
-       with open(filename, "wb") as f:
-           f.write(ciphertext)
-       return filename
-    
-    def uploader_fichier_vers_storage(path_local, nom_fichier):
-       bucket = storage.bucket()
-       blob = bucket.blob(f"images_chiffrees/{nom_fichier}")
-       blob.upload_from_filename(path_local)
-       blob.make_public()
-       return blob.public_url
-
-
-def on_leave(self):
-    self.close_camera()
-  
-
-def close_camera(self, *args):
-    if hasattr(self, 'capture') and self.capture.isOpened():
-        Clock.unschedule(self.update)
-        self.capture.release()
-        self.ids.camera_box.clear_widgets()
-        print("📷 Caméra fermée.")
+    def on_leave(self):
+        self.close_camera()
